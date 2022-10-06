@@ -41,19 +41,16 @@ class ShiftRegister:
 			raise ValueError("Invalid output number. Can be only an int from 0 to 7")
 
 	def setOutputs(self, outputs):
-		if 8 != len(outputs):
+		if len(outputs) != 8:
 			raise ValueError("setOutputs must be an array with 8 elements")
-
 		self.outputs = outputs
 
 	def latch(self):
 		GPIO.output(self.latch_pin, GPIO.LOW)
-
 		for i in range(7, -1, -1):
 			GPIO.output(self.clock_pin, GPIO.LOW)
 			GPIO.output(self.data_pin, self.outputs[i])
 			GPIO.output(self.clock_pin, GPIO.HIGH)
-
 		GPIO.output(self.latch_pin, GPIO.HIGH)
         
 shift = ShiftRegister()
